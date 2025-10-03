@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkhost_app=self.webpackChunkhost_app||[]).push([[498],{498:(e,p,s)=>{s.r(p),s.d(p,{useAppDispatch:()=>u,useAppSelector:()=>a});var t=s(843),u=t.useDispatch,a=t.useSelector}}]);
