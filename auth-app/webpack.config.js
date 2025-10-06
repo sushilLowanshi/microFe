@@ -43,7 +43,7 @@ module.exports = {
   //       host: "host@http://localhost:3000/remoteEntry.js", // remote host URL
   //     },
      remotes: {
-        host: "host@https://micro-fe-a.vercel.app/remoteEntry.js", // remote host URL
+        host: "host@https://micro-fe-h.vercel.app/remoteEntry.js", // remote host URL
       },
 
   shared: {
