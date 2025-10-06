@@ -4,7 +4,8 @@ const path = require("path");
 
 module.exports = {
   entry: "./src/index.tsx",
-  mode: "development",
+  // mode: "development",
+   mode: "production",
   devServer: {
     port: 3000,
     historyApiFallback: true,  //auth/* and /booking/*
@@ -33,11 +34,18 @@ module.exports = {
   plugins: [
     new ModuleFederationPlugin({
   name: "host",
-  remotes: {
-    auth: "auth@http://localhost:3001/remoteEntry.js",
-    booking: "booking@http://localhost:3002/remoteEntry.js",
-    reporting: "reporting@http://localhost:3003/remoteEntry.js", 
-  },
+  // remotes: {
+  //   auth: "auth@http://localhost:3001/remoteEntry.js",
+  //   booking: "booking@http://localhost:3002/remoteEntry.js",
+  //   reporting: "reporting@http://localhost:3003/remoteEntry.js", 
+  // },
+remotes: {
+  auth: "auth@https://micro-fe-a.vercel.app/remoteEntry.js",
+  booking: "booking@https://micro-fe-b.vercel.app/remoteEntry.js",
+  reporting: "reporting@https://micro-fe-r.vercel.app/remoteEntry.js",
+},
+
+
   exposes: {
     "./components/pages/Table": "./src/components/pages/table.tsx",
     "./components/pages/Modal": "./src/components/pages/modal.tsx",

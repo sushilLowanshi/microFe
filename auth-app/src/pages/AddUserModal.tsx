@@ -1,7 +1,7 @@
 import React from "react";
-import Modal from "host/components/pages/Modal";
-import Input from "host/components/pages/Input";
-import Button from "host/components/pages/Button";
+const Modal = React.lazy(() => import("host/components/pages/Modal"));
+const Input = React.lazy(() => import("host/components/pages/Input"));
+const Button = React.lazy(() => import("host/components/pages/Button"));
 
 interface AddUserModalProps {
   open: boolean;
@@ -33,23 +33,25 @@ const AddUserModal: React.FC<AddUserModalProps> = ({ open, onClose, onAdd }) => 
   ];
 
   return (
-    <Modal open={open} onClose={onClose}>
-      <h2 style={{ marginBottom: 18, fontSize: "1.3rem", fontWeight: 600 }}>Add New User</h2>
-      <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-        {inputFields.map((field) => (
-          <Input
-            key={field.name}
-            name={field.name}
-            type={field.type}
-            placeholder={field.placeholder}
-            value={field.value}
-            onChange={handleChange}
-            required
-          />
-        ))}
-        <Button type="submit">Add User</Button>
-      </form>
-    </Modal>
+    <React.Suspense fallback={<div>Loading...</div>}>
+      <Modal open={open} onClose={onClose}>
+        <h2 style={{ marginBottom: 18, fontSize: "1.3rem", fontWeight: 600 }}>Add New User</h2>
+        <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+          {inputFields.map((field) => (
+            <Input
+              key={field.name}
+              name={field.name}
+              type={field.type}
+              placeholder={field.placeholder}
+              value={field.value}
+              onChange={handleChange}
+              required
+            />
+          ))}
+          <Button type="submit">Add User</Button>
+        </form>
+      </Modal>
+    </React.Suspense>
   );
 };
 

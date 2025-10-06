@@ -2,10 +2,13 @@
 
 
 import React from "react";
-import Button from "host/components/pages/Button";
-import Table from "host/components/pages/Table";
-import { useAppSelector, useAppDispatch } from "host/store/hooks";
-import { addUser, deleteUser, selectUserList } from "host/host-slice/userSlice";
+const Button = React.lazy(() => import("host/components/pages/Button"));
+const Table = React.lazy(() => import("host/components/pages/Table"));
+const useAppSelector = require("host/store/hooks").useAppSelector;
+const useAppDispatch = require("host/store/hooks").useAppDispatch;
+const addUser = require("host/host-slice/userSlice").addUser;
+const deleteUser = require("host/host-slice/userSlice").deleteUser;
+const selectUserList = require("host/host-slice/userSlice").selectUserList;
 import AddUserModal from "../pages/AddUserModal";
 
 type User = {
@@ -42,34 +45,36 @@ const Users: React.FC = () => {
   };
 
   return (
-    <div style={styles.container}>
-      <div style={styles.card}>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginBottom: 12,
-          }}
-        >
-          <h2 style={styles.title}>User Table</h2>
-          <Button onClick={() => setModalOpen(true)}>Add User</Button>
+    <React.Suspense fallback={<div>Loading...</div>}>
+      <div style={styles.container}>
+        <div style={styles.card}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginBottom: 12,
+            }}
+          >
+            <h2 style={styles.title}>User Table</h2>
+            <Button onClick={() => setModalOpen(true)}>Add User</Button>
+          </div>
+
+          <Table
+            columns={columns}
+            data={users}
+            onAction={handleDelete}
+            actionLabel="Delete"
+          />
+
+          <AddUserModal
+            open={modalOpen}
+            onClose={() => setModalOpen(false)}
+            onAdd={handleAddUser}
+          />
         </div>
-
-        <Table
-          columns={columns}
-          data={users}
-          onAction={handleDelete}
-          actionLabel="Delete"
-        />
-
-        <AddUserModal
-          open={modalOpen}
-          onClose={() => setModalOpen(false)}
-          onAdd={handleAddUser}
-        />
       </div>
-    </div>
+    </React.Suspense>
   );
 };
 

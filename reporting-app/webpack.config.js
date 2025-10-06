@@ -4,7 +4,8 @@ const path = require("path");
 
 module.exports = {
   entry: "./src/index.tsx",
-  mode: "development",
+  // mode: "development",
+   mode: "production",
   devServer: {
     port: 3003,
       historyApiFallback: {
@@ -33,11 +34,12 @@ module.exports = {
       name: "reporting",
       filename: "remoteEntry.js",
       exposes: {
-        "./ReportingApp": "./src/bootstrap.tsx", 
+        // "./ReportingApp": "./src/bootstrap.tsx", 
+        "./ReportingApp": "./src/App",
       },
-      remotes: {
-        host: "host@http://localhost:3000/remoteEntry.js", // remote host URL
-      },
+      // remotes: {
+      //   host: "host@http://localhost:3000/remoteEntry.js", // remote host URL
+      // },
       shared: {
   react: { singleton: true, eager: true, requiredVersion: "18.2.0" },
   "react-dom": { singleton: true, eager: true, requiredVersion: "18.2.0" },
